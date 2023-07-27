@@ -1,6 +1,6 @@
 # think-hashids
-> Thinkphp 中使用 Hashids 用于将数字生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用  
-> 支持B站BV生成模式，生成B站/video/`BV1fx411v7eo`这种ID
+- Thinkphp 中使用 Hashids 用于将数字生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用
+- 支持B站BV生成模式，生成B站/video/`BV1fx411v7eo`这种ID
 
 <p>
     <a href="https://packagist.org/packages/isszz/think-hashids"><img src="https://img.shields.io/badge/php->=8.0-8892BF.svg" alt="Minimum PHP Version"></a>
