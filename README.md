@@ -1,5 +1,5 @@
 # think-hashids
-> Thinkphp 中使用 Hashids 用于将数字生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用
+> Thinkphp 中使用 Hashids 用于将数字生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用  
 > 支持B站BV生成模式，生成B站/video/`BV1fx411v7eo`这种ID
 
 
