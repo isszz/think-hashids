@@ -1,5 +1,5 @@
 # think-hashids
-- Thinkphp 中使用 Hashids 用于将数字生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用
+- Thinkphp 中使用 Hashids 用于将数字ID生成类似YouTube的ID。当您不想向用户公开数据库数字ID时使用
 - 支持B站的ID生成模式，生成B站/video/`BV1fx411v7eo`这种ID
 
 <p>
@@ -37,7 +37,8 @@ return [
             'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
         ],
         'bilibili' => [
-            // 可配置前缀为: ['B', 'V']或者'BV'，超过2位忽略
+            // 此模式无需添加其他的配置
+            // 前缀超过2位英文字母忽略
             'prefix' => ['', ''], // B站BV模式前缀类似: BV1fx411v7eo = 12345678
         ],
     ],
@@ -73,6 +74,21 @@ class Index
 
         Hashids::encode(12345678); // 1fx411v7eo
         Hashids::decode('1rQ2go'); // 12345678
+
+        // 其他传输ID的方式，返回为数组，对应传参
+        Hashids::encode(12, 34, 56, 78); // nyILSjosbR
+        $hashID = Hashids::encode([12, 34, 56, 78]); // nyILSjosbR
+        
+        $result = Hashids::decode($hashID);
+        // 返回数组，对应传入参数
+        /*
+        $result = [
+            '0' => 12
+            '1' => 34
+            '2' => 56
+            '3' => 78
+        ];
+        */ 
     }
 }
 
@@ -105,5 +121,45 @@ class Index
 }
 
 ```
+助手函数
+```php
+class Index
+{
+    public function index()
+    {
+        // 加密
+        id_encode(12345678); // 1rQ2go
+        id_encode(12, 34, 56, 78, 'other'); // nyILSjosbR
+        id_encode([12, 34, 56, 78], mode: 'other'); // nyILSjosbR
 
-- 查看更多用法: [vinkla/hashids](https://github.com/vinkla/hashids)
+        // 解密
+        id_decode('1rQ2go'); // 12345678
+        id_decode('gpyAoR', 'other'); // 12345678
+
+        // 切换模式
+        id_mode('other')->encode(12345678); // gpyAoR
+        id_mode('other')->decode('gpyAoR'); // 12345678
+
+        // 助手函数还有一个获取字母表的函数
+        // 拿到可以用来设置`config/plugin/isszz/webman-hashids/app.php `配置中的alphabet字段
+        $alphabet = id_build_alphabet();
+    }
+}
+
+```
+使用模型获取器对ID进行加密
+```php
+public function getIdAttr($value)
+{
+    return id_encode($value);
+}
+
+// 主键非id时, 比如是tid时
+public function getTidAttr($value)
+{
+    return id_encode($value);
+}
+
+```
+
+- 基础库来自: [vinkla/hashids](https://github.com/vinkla/hashids)
