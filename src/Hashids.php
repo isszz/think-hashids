@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace isszz\hashids;
 
-use think\App;
 use think\Config;
-use think\heler\Arr;
-
 use Hashids\Hashids as HashidsParent;
 
 class Hashids
@@ -41,30 +38,16 @@ class Hashids
      * Get a mode instance.
      *
      * @param string|null $name
+     * @param array|string $prefix Applicable to bilibili mode 
+     * 
      * @throws \InvalidArgumentException
      * @return object
      */
-    public function mode(string $name = null, array|string $prefix = ['', ''])
+    public function mode(?string $name = null, array|string $prefix = ['', ''])
     {
-        if (!empty($name) && $name == 'bilibili') {
+        $default = $this->config->get('hashids.default', 'main');
 
-            if (!isset($this->modes[$name])) {
-                $this->modes[$name] = new Bilibili(
-                    $prefix ?? $this->config->get('hashids.modes.bilibili.prefix', ['', ''])
-                );
-            }
-
-            return $this->modes[$name];
-        }
-
-        $config = $this->config->get('hashids', []);
-
-        if (empty($config) || empty($config['modes'])) {
-            throw new \InvalidArgumentException('Get configuration is null');
-        }
-
-        $name = $name ?: $config['default'];
-
+        $name = $name ?: $default;
 
         if (!isset($this->modes[$name])) {
             $this->modes[$name] = $this->makeMode($name);
@@ -78,13 +61,17 @@ class Hashids
      * Make the mode instance.
      *
      * @param string $name
+     * @param array|string $prefix Applicable to bilibili mode
+     * 
      * @throws \InvalidArgumentException
      * @return object
      */
-    protected function makeMode(string $name): object
+    protected function makeMode(string $name, array|string $prefix = ['', '']): object
     {
         if (!empty($name) && $name == 'bilibili') {
-            return $this->mode($name);
+            return new Bilibili(
+                $prefix ?? ($this->config['bilibili']['prefix'] ?: ['', ''])
+            );
         }
         
         $config = $this->getModeConfig($name);
@@ -103,14 +90,14 @@ class Hashids
      * @throws \InvalidArgumentException
      * @return array
      */
-    public function getModeConfig(string $name = null): array
+    public function getModeConfig(?string $name = null): array
     {
         $name = $name ?: $this->getDefaultMode();
 
         $config = $this->config->get('hashids.modes.'. $name);
 
         if (!$config) {
-            throw new InvalidArgumentException('Hashids modes ['. $name .'] not configured.');
+            throw new \InvalidArgumentException('Hashids modes ['. $name .'] not configured.');
         }
 
         return $config;
