@@ -48,7 +48,7 @@ return [
 
 ## 用法
 
-facade方式引入
+**facade方式引入**
 
 ```php
 use isszz\hashids\facade\Hashids;
@@ -94,7 +94,7 @@ class Index
 
 
 ```
-依赖注入方式
+**依赖注入方式**
 
 ```php
 use isszz\hashids\Hashids;
@@ -121,7 +121,7 @@ class Index
 }
 
 ```
-助手函数
+**助手函数**
 ```php
 class Index
 {
@@ -147,7 +147,7 @@ class Index
 }
 
 ```
-使用模型获取器对ID进行加密
+**使用模型获取器对ID进行加密**
 ```php
 public function getIdAttr($value)
 {
