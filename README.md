@@ -56,7 +56,7 @@ class Index
 {
     public function index()
     {
-        // B站BV模式
+        // B站BV模式, B站模式支持第二个参数增加前缀，可以设置例如: prefix = 'BV'
         Hashids::mode('bilibili')->encode(12345678); // 1fx411v7eo
         Hashids::mode('bilibili')->decode('1fx411v7eo'); // 12345678
 
@@ -70,7 +70,7 @@ class Index
 
         // 更改默认模式为bilibili
         Hashids::setDefaultMode('bilibili');
-        
+
         Hashids::encode(12345678); // 1fx411v7eo
         Hashids::decode('1rQ2go'); // 12345678
     }
@@ -87,7 +87,7 @@ class Index
 {
     public function index(Hashids $hashids)
     {
-        // B站BV模式
+        // B站BV模式, B站模式支持第二个参数增加前缀，可以设置例如: prefix = 'BV'
         $hashids->mode('bilibili')->encode(12345678); // 1fx411v7eo
         $hashids->mode('bilibili')->decode('1fx411v7eo'); // 12345678
 
