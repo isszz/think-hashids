@@ -38,12 +38,12 @@ class Hashids
      * Get a mode instance.
      *
      * @param string|null $name
-     * @param array|string $prefix Applicable to bilibili mode 
+     * @param string|null $prefix Applicable to bilibili mode
      * 
      * @throws \isszz\hashids\HashidsException
      * @return object
      */
-    public function mode(?string $name = null, array|string $prefix = ['', ''])
+    public function mode(?string $name = null, string|null $prefix = null)
     {
         $default = $this->config->get('hashids.default', 'main');
 
@@ -61,12 +61,12 @@ class Hashids
      * Make the mode instance.
      *
      * @param string $name
-     * @param array|string $prefix Applicable to bilibili mode
+     * @param string|null $prefix Applicable to bilibili mode
      * 
      * @throws \isszz\hashids\HashidsException
      * @return object
      */
-    protected function makeMode(string $name, array|string $prefix = ['', '']): object
+    protected function makeMode(string $name, string|null $prefix = null): object
     {
         if (!empty($name) && $name == 'bilibili') {
             return new Bilibili(

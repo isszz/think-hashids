@@ -20,20 +20,18 @@ class Bilibili
     /**
      * Create a new Bilibili instance.
      *
-     * @param string|array $prefix
+	 * @param string|null $prefix
      *
      * @return void
      */
-	public function __construct(string|array $prefix = ['', ''])
+	public function __construct(string|null $prefix = null)
 	{
 		if (!$prefix) {
 			return;
 		}
 		
-		if (is_string($prefix)) {
+		if (!is_null($prefix)) {
 			[$this->prefix[0], $this->prefix[1]] = str_split($prefix);
-		} else {
-			$this->prefix = array_slice($prefix, 0, 2);
 		}
 	}
 
