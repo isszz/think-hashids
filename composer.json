@@ -1,10 +1,12 @@
 {
     "name": "isszz/think-hashids",
-    "description": "thinkphp Hashids",
+    "description": "Thinkphp Hashids Used to generate a youtube-like ID from a digital ID",
     "keywords": [
         "think",
         "thinkphp",
-        "hashids"
+        "hashids",
+        "YouTube ID",
+        "Bilibili BV"
     ],
     "license": "MIT",
     "authors": [
