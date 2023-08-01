@@ -68,10 +68,15 @@ class Bilibili
 	{
 		$r = $this->getTable();
 
-		if (!($prefix = implode('', $this->prefix))) {
+		$prefix = implode('', $this->prefix);
+
+		if ($prefix) {
+			// 解码字符串未携带前缀补上
+			!str_contains($x, $prefix) && $x = $prefix . $x;
+		} else {
 			// 未设置前缀时补位
 			$x = '  '. $x;
-		}
+        }
 
 		$s = 0;
 		for ($i = 0; $i < 6; $i++) {

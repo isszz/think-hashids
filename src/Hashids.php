@@ -40,7 +40,7 @@ class Hashids
      * @param string|null $name
      * @param array|string $prefix Applicable to bilibili mode 
      * 
-     * @throws \InvalidArgumentException
+     * @throws \isszz\hashids\HashidsException
      * @return object
      */
     public function mode(?string $name = null, array|string $prefix = ['', ''])
@@ -63,7 +63,7 @@ class Hashids
      * @param string $name
      * @param array|string $prefix Applicable to bilibili mode
      * 
-     * @throws \InvalidArgumentException
+     * @throws \isszz\hashids\HashidsException
      * @return object
      */
     protected function makeMode(string $name, array|string $prefix = ['', '']): object
@@ -87,7 +87,8 @@ class Hashids
      * Get the configuration for a mode.
      *
      * @param string|null $name
-     * @throws \InvalidArgumentException
+     * 
+     * @throws \isszz\hashids\HashidsException
      * @return array
      */
     public function getModeConfig(?string $name = null): array
@@ -97,7 +98,7 @@ class Hashids
         $config = $this->config->get('hashids.modes.'. $name);
 
         if (!$config) {
-            throw new \InvalidArgumentException('Hashids modes ['. $name .'] not configured.');
+            throw new HashidsException('Hashids modes ['. $name .'] not configured.');
         }
 
         return $config;
